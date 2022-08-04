@@ -1,5 +1,5 @@
 {{- if .Values.ingress.enabled -}}
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ template "zalenium.fullname" . }}
@@ -18,10 +18,11 @@ spec:
   - host: {{ .Values.ingress.hostname }}
     http:
       paths:
-      - backend:
-          serviceName: {{ template "zalenium.fullname" . }}
-          servicePort: {{ .Values.hub.svcPort }}
-        {{- if .Values.ingress.path }}
+      - pathType: Prefix
         path: {{ .Values.ingress.path }}
-        {{- end }}
+        backend:
+          service:
+            name: {{ template "zalenium.fullname" . }}
+            port:
+              number: {{ .Values.hub.svcPort }}
 {{- end -}}
