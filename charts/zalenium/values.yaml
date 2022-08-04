@@ -89,18 +89,18 @@ hub:
 
   ## Environment variables passed to Zalenium hub.
   ## https://github.com/zalando/zalenium/blob/master/docs/usage_examples.md
-  desiredContainers: 2
-  maxDockerSeleniumContainers: 10
+  desiredContainers: 4
+  maxDockerSeleniumContainers: 30
   videoRecordingEnabled: true
   # the limits/requests below are for Selenium pods (containers)
   cpuRequest: 250m
   cpuLimit: 1000m
   memRequest: 500Mi
   memLimit: 2Gi
-  screenWidth: 1440
-  screenHeight: 900
-  timeZone: "UTC"
-  seleniumImageName: "elgalu/selenium"
+  screenWidth: 1280
+  screenHeight: 720
+  timeZone: "UTC-2"
+  seleniumImageName: "colaslorenzo/docker-selenium:ff_102_driver_29_chr_103"
   maxTestSessions: 1
   newSessionsWaitTimeout: 600000
   debugEnabled: false
@@ -183,15 +183,15 @@ persistence:
     folder: ""
 
 ingress:
-  enabled: false
-  tls: false
+  enabled: true
+  tls: true
   # secretName: my-tls-cert # only needed if tls above is true
-  hostname: zalenium.foobar.com
+  hostname: zalenium.qa-aks.qa.nexploredevops.com
   # If your ingress host name is shared with multiple
   # applications, Enter a path starting with / (eg. /zalenium)
   # If your ingress host name is only for Zalenium,
   # no need to set path
-  # path: /
+  path: /
   # maxBodySize: 300M
   annotations:
   # kubernetes.io/ingress.class: "nginx"
